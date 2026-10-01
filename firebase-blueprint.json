@@ -1,0 +1,78 @@
+{
+  "entities": {
+    "CampaignBatch": {
+      "title": "CampaignBatch",
+      "description": "A saved campaign iteration containing generation settings, brand snapshot, and rendered shots.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "UID of the owner"
+        },
+        "name": {
+          "type": "string",
+          "description": "User-friendly name of the batch iteration"
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "Epoch timestamp of creation"
+        },
+        "model": {
+          "type": "string",
+          "description": "Image model used"
+        },
+        "completedCount": {
+          "type": "number",
+          "description": "Number of completed image assets"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional notes or comments"
+        }
+      },
+      "required": ["userId", "name", "timestamp", "model"]
+    },
+    "DriveExportLog": {
+      "title": "DriveExportLog",
+      "description": "Log of batches exported to user's Google Drive.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "UID of the user who exported"
+        },
+        "folderId": {
+          "type": "string",
+          "description": "Google Drive Folder ID"
+        },
+        "folderName": {
+          "type": "string",
+          "description": "Google Drive Folder Name"
+        },
+        "folderUrl": {
+          "type": "string",
+          "description": "Google Drive Web View Link"
+        },
+        "assetCount": {
+          "type": "number",
+          "description": "Number of assets uploaded"
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "Epoch timestamp of export"
+        }
+      },
+      "required": ["userId", "folderId", "folderName", "assetCount", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/batches/{batchId}": {
+      "schema": "CampaignBatch",
+      "description": "Saved campaign batches for a specific user"
+    },
+    "/users/{userId}/driveExports/{exportId}": {
+      "schema": "DriveExportLog",
+      "description": "Google Drive export logs for a specific user"
+    }
+  }
+}
